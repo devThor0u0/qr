@@ -4,6 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>QR 코드 스캐너 (카메라 선택)</title>
+	<link rel="manifest" href="./manifest.json">
 	<link rel="stylesheet" href="../css/index.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -235,6 +236,16 @@
 		});
 	});
 
+
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('./sw.js')
+		.then(() => console.log('✅ 서비스워커 등록 성공'))
+		.catch(err => console.error('❌ 서비스워커 등록 실패:', err));
+	}
+
+	
+
 	</script>
+
 </body>
 </html>

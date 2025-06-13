@@ -18,25 +18,23 @@
     <script src="../js/qrcode.js"></script>	
 	<script>
 
+    let fileName = '';
+    let imgData = '';
+
+
     // QR 생성 및 캡처 실행
 	$(function () {
         const qr = qrcode(0, 'L');
         const k = generateRandomString();
         const d = getTodayDate();
+        fileName = `${getTodayDateCompact()}_${generateRandom4Digits()}.png`; // 전역 변수로 설정
         qr.addData(`k=${k}&d=${d}`);
         qr.make();
 
-        // QR 코드 이미지 태그 생성 (cellSize 6 → 4, margin 4 → 2)
         const html = qr.createImgTag(4, 2, 'QR', "#ffffff", "#333333");
         $("#qrcode").html(html);
+        $("#qrcode img").css({ width: "200px", height: "200px" });
 
-        // 생성된 <img>에 스타일 직접 지정 (CSS로 200px 제한)
-        $("#qrcode img").css({
-            width: "200px",
-            height: "200px"
-        });
-
-        // QR 이미지 로딩 후 캡처
         $("#qrcode img").on("load", function () {
             setTimeout(() => {
                 PrintDiv($("#capture"));
@@ -50,9 +48,8 @@
         html2canvas($div[0], {
             useCORS: true
         }).then(function (canvas) {
-            const imgData = canvas.toDataURL("image/png");
+            imgData = canvas.toDataURL("image/png");
 
-            // 이미지 결과 출력
             $("#captureOri").attr("src", imgData).css({
                 display: "block",
                 width: "100%",
@@ -60,22 +57,16 @@
                 height: "800px"
             });
 
-            // ✅ capture 영역 숨김 처리
-            $div.css({
-                display: "none"
-            });
+            $div.css({ display: "none" });
 
-
-            // 다운로드 설정
-            const fileName = `${getTodayDateCompact()}_${generateRandom4Digits()}.png`;
+            // 다운로드 링크 정보 설정만 (자동 클릭 제거)
             $("#downloadLink").attr({
                 href: imgData,
                 download: fileName
-            })
+            });
 
             $("#downloadContainer").show();
 
-            // 스크롤 이동
             setTimeout(() => {
                 const offset = $("#captureOri").offset();
                 if (offset) {
@@ -84,6 +75,8 @@
             }, 100);
         });
     }
+
+
 
 
 
@@ -117,6 +110,21 @@
     function generateRandom4Digits() {
         return Math.floor(1000 + Math.random() * 9000); // 1000 ~ 9999 사이의 난수
     }
+
+    function downloadQR() {
+	    if (!imgData || !fileName) {
+            alert("이미지를 생성한 후 저장해주세요.");
+            return;
+        }
+        const link = document.createElement("a");
+        link.href = imgData;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+
 
 
 
@@ -187,8 +195,8 @@
 
 	<div id="btn_wrap">
         <div style="display: flex; gap: 4px;">
-            <button class="btn_close" id="submit">닫기</button>
-            <a id="downloadLink" href="#" class="btn_download">이미지 저장</a>
+            <button type="button" class="btn_close" id="submit">닫기</button>
+            <button type="button" id="downloadLink" class="btn_download" onclick="downloadQR()">이미지 저장</button>
         </div>
 
 	</div>
