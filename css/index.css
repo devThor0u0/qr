@@ -1,0 +1,388 @@
+/**********************************
+index.html
+QRì½”ë“œ ìŠ¤ìº” ëžœë”©íŽ˜ì´ì§€
+**********************************/
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;  
+    /*font-family: 'Nanum Gothic Coding', monospace;*/
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
+}
+body {
+    display: flex;
+    flex-direction: column; /*ì„¸ë¡œì •ë ¬*/
+    /*justify-content: center; ê°€ë¡œì •ë ¬*/ 
+    align-items: center;     
+    min-height: 100vh; 
+    background: rgba(0, 0, 0, 0.88);
+}
+
+/**********************************
+Header: logo/select box/close_btn
+**********************************/
+.header {
+    height: 60px;
+    background: #fff;
+    z-index: 10;
+    width: 100vw;
+}
+.header .inner {
+    position: relative;
+    padding: 36px 0px 25px;
+    display: flex;
+    background: #fff;
+    width: auto;    
+}
+.header .inner .logo{
+    display: flex;
+    width: 100%;
+    justify-content: left;
+    /*background: url(../img/ci.svg) center top / 250px no-repeat;*/
+}
+.header .inner .logo img{
+    height: 40px;
+    margin-left: 20px
+}
+.header .inner .close_btn {
+    position: absolute;
+    z-index: 999;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: url(../img/ico-modal-close.png) no-repeat 50% 50%;
+}
+.header .inner .selbox  {
+    display: flex;
+    justify-content: right;
+    position: relative;
+    padding-right: 80px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #222;
+    line-height: 23px;
+    width: 100%;
+}
+.header .inner .selbox .select {
+    position: relative;
+    padding: 5px 20px 5px 10px;
+    width: 270px;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #dddddd;
+    background-color: #fff;
+    background-image: url(../img/expand-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 96% center;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: left;
+    z-index: 999;
+    overflow: hidden;
+}
+
+
+/* 공통: 기본 화살표 제거 */
+.header .inner .selbox .select select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background: none;
+	border: none; /* 필요 시 스타일 지정 */
+	padding: 8px;
+	width: 100%;
+	/* height: 100%; */
+}
+
+/* IE용 (화살표 제거) */
+.header .inner .selbox .select select::-ms-expand {
+	display: none;
+}
+
+.header .inner .selbox .select select:focus-visible {
+    border: none;
+}
+
+
+/**********************************
+QRì½”ë“œ container
+**********************************/
+.container {
+    /*
+    margin: 150px 0;
+    position: relative; 
+    width: 530px; 
+    height: 530px;
+    */
+    width: 100%;
+    height: 90vh;
+}
+.container .scan {
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+}
+.container .qrcode {
+    position: relative; 
+    width: 400px; 
+    height: 400px; 
+    background: url(../img/img-qr.png); 
+    background-size: 400px; 
+    filter: invert(0.2);
+}
+.container .qrcode::before {
+    content: ''; 
+    position: absolute; 
+    left: 0; 
+    top: 0; width: 100%; 
+    height: 100%; 
+    background: url(../img/img-qr-blue.png); 
+    overflow: hidden; 
+    animation: animate 4s ease-in-out infinite;
+}
+.container .qrcode::after {
+    content: ''; 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    top: 0px; 
+    width: calc(100% + 40px); 
+    height: 2px; 
+    background: #3c89f7; 
+    filter: drop-shadow(0 0 20px #3c89f7) drop-shadow(0 0 60px #3c89f7); 
+    animation: animateLine 4s ease-in-out infinite; 
+    background-repeat: no-repeat;
+}  /* #35fd5c , #16f542*/
+.container .border {
+    position: absolute;
+    inset: 0px;
+    top: -60px;
+    height: 530px;
+    background-color: rgb(0, 0, 0, 0.2);
+    background: url(../img/img-qr-border.png);
+    background-size: 530px;
+    filter: invert(1);
+    background-repeat: no-repeat;
+    animation: animateText 0.5s linear infinite;
+}
+.container .border-bg {
+    display: flex;
+    flex-direction: column;
+    margin-top: -633px;
+    width: 530px;
+    height: 530px;
+    background-color: #000;
+    /*background-color: rgb(249 246 246 / 7%);
+    background-color: rgb(255 255 255 / 6%);*/
+}
+.container h3 {
+    text-align: center;
+    /*text-transform: uppercase; ëŒ€ë¬¸ìž ë³€ê²½*/
+    font-size: 3.1em; color: #fff; 
+    font-weight: 700; 
+    letter-spacing: 2px; 
+    margin-top: 100px; 
+    /*filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 60px #fff); */
+    /*animation: animateText 0.7s steps(1) infinite;*/
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background: black;
+}
+
+
+.main-content {
+	flex: 1;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: black;
+	overflow: hidden;
+	/* height: 12vh; */
+}
+
+#qr-reader-container {
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+}
+
+#qr-reader {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+#qr-reader video {
+	object-fit: cover !important;
+	width: 100% !important;
+	height: 100% !important;
+	aspect-ratio: 1 / 1 !important;
+}
+
+#reader__scan_region > div {
+	border: 2px dashed red !important; /* 시각적으로 강조 */
+}
+
+
+
+/* 각 모서리 선 */
+.focus-box .corner {
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	box-sizing: border-box;
+}
+
+
+/* 선 색상 및 두께 */
+.focus-box .corner::before,
+.focus-box .corner::after {
+	content: '';
+	position: absolute;
+	background-color: #ffffff; /* 코너 선 색상 */
+}
+
+/* 상단 좌측 ┌ */
+.top-left::before {
+	width: 30px;
+	height: 6px;
+	top: 0;
+	left: 0;
+}
+.top-left::after {
+	width: 6px;
+	height: 30px;
+	top: 0;
+	left: 0;
+}
+
+/* 상단 우측 ┐ */
+.top-right {
+	right: 0;
+	top: 0;
+}
+.top-right::before {
+	width: 30px;
+	height: 6px;
+	top: 0;
+	right: 0;
+}
+.top-right::after {
+	width: 6px;
+	height: 30px;
+	top: 0;
+	right: 0;
+}
+
+/* 하단 좌측 └ */
+.bottom-left {
+	left: 0;
+	bottom: 0;
+}
+.bottom-left::before {
+	width: 30px;
+	height: 6px;
+	bottom: 0;
+	left: 0;
+}
+.bottom-left::after {
+	width: 6px;
+	height: 30px;
+	bottom: 0;
+	left: 0;
+}
+
+/* 하단 우측 ┘ */
+.bottom-right {
+	right: 0;
+	bottom: 0;
+}
+.bottom-right::before {
+	width: 30px;
+	height: 6px;
+	bottom: 0;
+	right: 0;
+}
+.bottom-right::after {
+	width: 6px;
+	height: 30px;
+	bottom: 0;
+	right: 0;
+}
+
+
+
+.main-content h3 {
+    text-align: center;
+    /*text-transform: uppercase; ëŒ€ë¬¸ìž ë³€ê²½*/
+    font-size: 3.1em;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 100px;
+    position: absolute;
+    top: 60%;
+    /*filter: drop-shadow(0 0 20px #fff) drop-shadow(0 0 60px #fff); */
+    /*animation: animateText 0.7s steps(1) infinite;*/
+}
+
+@keyframes scan {
+	0% { top: 0; }
+	100% { top: 100%; }
+}
+
+#result-text {
+	position: absolute;
+	bottom: 30px;
+	width: 100%;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+}
+
+/**********************************
+Footer copyright
+**********************************/
+.footer {
+    height: 80px;
+    /* background: #fff; */
+    text-align: center;
+    font-size: 16px;
+    color: #888;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+}
+.footer span {
+    /*margin: 50px;*/
+    font-size: 1.45em;
+    font-weight: 300;
+    line-height: 10px;
+    letter-spacing: 1px; 
+    color: rgb(187 187 187);
+}
+@keyframes animate {
+    0%,100% {height: 0;}
+    50% {height: 100%;}
+}
+@keyframes animateLine {
+    0% {top: 0;}
+    50% {top: 100%;}
+}
+@keyframes animateText {
+    0%,100% {opacity: 0;}
+    50% {opacity: 1;}
+}

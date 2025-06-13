@@ -1,0 +1,37 @@
+@charset 'utf-8';
+/* -----------------------------------
+    폰트  
+--------------------------------------*/
+@charset 'utf-8';
+
+@font-face {
+	font-family: 'NotoKr';
+	font-style: normal;
+	font-weight: 300;
+	src: url('font/notokr-regular.woff2') format('woff2'),
+		 url('font/notokr-regular.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoKr';
+	font-style: normal;
+	font-weight: 500;
+	src: url('font/notokr-medium.woff2') format('woff2'),
+		 url('font/notokr-medium.woff') format('woff');
+}
+@font-face {
+	font-family: 'NotoKr';
+	font-style: normal;
+	font-weight: 700;
+	src: url('font/notokr-bold.woff2') format('woff2'),
+		 url('font/notokr-bold.woff') format('woff');
+}
+
+body {
+	font-family: 'NotoKr', sans-serif;
+	font-size: 15px;
+	color: #101010;
+	line-height: 26px;
+    font-style: normal;
+}
+
+

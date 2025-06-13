@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>QR 코드 스캐너 (카메라 선택)</title>
+	<link rel="stylesheet" href="../css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">   
+	<script src="../js/jquery-3.7.1.min.js"></script>
+	<script src="../js/html5-qrcode.min.js"></script>
+
+</head>
+<body>
+	<div class="header"> 
+        <div class="inner">
+            <span class="logo">
+                <img src="../img/logo.svg"></img>
+            </span>                    
+                <div class="selbox">
+                    <div class="select" data-role="selectBox">
+						<select id="camera-select" style="top:45px"></select>
+                    </div> 
+                </div>
+            <button class="close_btn"></button>                  
+        </div>
+    </div>
+
+
+    <main class="main-content">
+		<div id="qr-reader-container">
+			<div id="qr-reader"></div>
+			<div class="focus-box"></div> <!-- 포커싱 박스 -->
+
+			<!-- 마스킹 오버레이 추가 -->
+			<div class="qr-overlay">
+				<div class="cutout"></div> <!-- 포커싱 박스 영역 -->
+			</div>
+		</div>
+		<h3>QR코드를 스캔하세요</h3>
+	</main>
+	
+	
+    <div class="footer"> 
+        <span>Copyright©2025 SAMSUNG C&T. All rights reserved.</span>
+    </div>
+
+	<div id="qr-result">스캔된 결과가 여기에 표시됩니다.</div>
+	<audio id="success-sound" src="../sounds/success.mp3" preload="auto"></audio>
+	<audio id="fail-sound" src="../sounds/fail.mp3" preload="auto"></audio>
+
+
+	<script>
+		const resultElem = document.getElementById("qr-result");
+		const cameraSelect = document.getElementById("camera-select");
+		const successSound = document.getElementById("success-sound");
+		const failSound = document.getElementById("fail-sound");
+		const html5QrCode = new Html5Qrcode("qr-reader");
+
+
+		let currentCameraId = null;
+		let isCameraRunning = false;
+		const focusBoxSize = Math.floor(window.innerWidth * 0.65);
+		
+
+		$(document).ready(function() {
+		});
+
+		function onScanSuccess(decodedText, decodedResult) {
+			html5QrCode.stop().then(() => {
+
+				// 성공 시 알림음
+				successSound.play();
+				document.getElementById("qr-result").innerText = decodedText;
+				const key = getQueryValue(decodedText, 'k');
+				const date = getQueryValue(decodedText, 'd');
+				
+				console.log("k: " + key);
+				console.log("d: " + date);
+				// ajax로 k, d 값 전달
+				/*
+				$.ajax({
+					type: 'GET',
+					url: '../service/serviceApi.html',
+					data: { k: key, d: date },
+					dataType: 'html',
+					success: function(response) {
+						document.getElementById("qr-result").innerText = response;
+					},
+					error: function(xhr, status, err) {
+						console.error("에러:", err);
+					}
+				});
+				*/
+
+				setTimeout(() => {
+					
+					currentCameraId = localStorage.deviceId;
+					startCamera(currentCameraId);
+
+				}, 13000);
+
+			}).catch(err => {
+				resultElem.innerText = `❌ 카메라 정지 실패: ${err}`;
+				failSound.play();
+			});
+		}
+
+		Html5Qrcode.getCameras().then(devices => {
+
+			if (!devices || devices.length === 0) {
+				resultElem.innerText = "❌ 사용 가능한 카메라가 없습니다.";
+				return;
+			}
+
+			// 카메라 목록 셀렉트박스 채우기
+			devices.forEach((device, index) => {
+				const option = document.createElement("option");
+				option.value = device.id;
+				option.text = device.label || `카메라 ${index + 1}`;
+				cameraSelect.appendChild(option);
+			});
+
+
+			
+			if (devices.length == 1) {
+				console.warn("1개의 카메라만 감지됨");
+				localStorage.deviceId = devices[0].id;
+				currentCameraId = devices[0].id
+			} else {
+				
+				if(localStorage.deviceId != "" && typeof(localStorage.deviceId) != "undefined") {
+					currentCameraId = localStorage.deviceId;
+				} else {
+					localStorage.deviceId = devices[0].id;
+					currentCameraId = devices[0].id;
+				}
+			}
+
+
+			// 기본 첫 번째 카메라 선택 및 시작
+			cameraSelect.value = currentCameraId;
+			startCamera(currentCameraId);
+		}).catch(err => {
+			resultElem.innerText = `❌ 카메라 접근 실패: ${err}`;
+		});
+
+		function startCamera(cameraId) {
+			console.log("카메라 시작 요청:", cameraId);
+
+			html5QrCode.start(
+				cameraId,
+				{
+					fps: 10,
+					qrbox: { width: 500, height: 500
+					
+					 }, 
+				},
+				(decodedText) => {
+
+					alert("QR 인식: " + decodedText);
+
+					// ajax 호출하여 k, d 값 넘겨주기
+					// ajax 호출하여 k, d 값 넘겨주기
+					// ajax 호출하여 k, d 값 넘겨주기
+
+
+					// ✅ 일정 시간 후 카메라 재시작
+					setTimeout(() => {
+						startCamera(cameraId);
+					}, 3000); 
+				}
+			).then(() => {
+				isCameraRunning = true;
+				console.log("카메라 실행됨:", cameraId);
+			}).catch(err => {
+				isCameraRunning = false;
+				console.error("카메라 실행 실패", err);
+			});
+		}
+
+
+		function getQueryValue(str, key) {
+			const pairs = str.split('&');
+			for (let pair of pairs) {
+				const [k, v] = pair.split('=');
+				if (k === key) return decodeURIComponent(v);
+			}
+			return null;
+		}
+
+		
+
+		function getMobileQrbox() {
+			const width = window.innerWidth;
+			if (width < 400) return 200;
+			else if (width < 700) return 250;
+			else return 300;
+		}
+
+
+		// 카메라 변경 이벤트 처리
+		cameraSelect.addEventListener("change", () => {
+		const selectedId = cameraSelect.value;
+
+		if (!selectedId || selectedId === currentCameraId) return;
+
+		localStorage.deviceId = selectedId;
+
+		if (isCameraRunning) {
+			html5QrCode.stop()
+				.then(() => {
+					currentCameraId = selectedId;
+					startCamera(currentCameraId);
+				})
+				.catch(err => {
+					resultElem.innerText = `❌ 카메라 전환 실패: ${err}`;
+				});
+		} else {
+			currentCameraId = selectedId;
+			startCamera(currentCameraId);
+		}
+	});
+
+
+	// 권한 먼저 요청
+	navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+		stream.getTracks().forEach(t => t.stop());
+
+		// 권한 허용 후 다시 enumerateDevices 호출
+		navigator.mediaDevices.enumerateDevices().then(devices => {
+			const videoInputs = devices.filter(d => d.kind === 'videoinput');
+			console.log(videoInputs);
+		});
+	});
+
+	</script>
+</body>
+</html>

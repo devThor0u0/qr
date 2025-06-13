@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Service API</title>
+</head>
+<body>
+	<script>
+		const params = new URLSearchParams(window.location.search);
+		const k = params.get('k');
+		const d = params.get('d');
+
+		document.write(`<div style="text-align:center;">
+			<h2>✅ QR 수신 성공</h2>
+			<p><strong>k:</strong> ${k}</p>
+			<p><strong>d:</strong> ${d}</p>
+		</div>`);
+	</script>
+</body>
+</html>

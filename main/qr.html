@@ -1,0 +1,38 @@
+<script src="../js/qrcode.js"></script>
+<div id="qrcode"></div>
+<script>
+	const qr = qrcode(0, 'L');
+    const k = generateRandomString();
+    const d = getTodayDate();
+    qr.addData(`k=${k}&d=${d}`);
+    qr.make();
+
+    const html = qr.createImgTag(6, 4, 'QR', "#ffffff", "#333333"); // scale, margin, alt, fg, bg
+    document.getElementById("qrcode").innerHTML = html;
+
+
+    function generateRandomString(length = 64) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            result += chars[randomIndex];
+        }
+        return result;
+    }
+
+
+    function getTodayDate() {
+        const today = new Date();
+
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // 0-based
+        const day = String(today.getDate()).padStart(2, '0');
+
+        return `${year}-${month}-${day}`;
+    }
+
+    const random64 = generateRandomString(64);
+    console.log(random64);
+
+</script>

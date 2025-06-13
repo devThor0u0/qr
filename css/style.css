@@ -1,0 +1,412 @@
+@charset 'utf-8';
+/* CSS Document */
+
+
+/**********************************************
+
+* Project : 방문자 안전교육
+* File name : style.css
+* date : 2021.3.26
+
+**********************************************/
+
+
+
+/* -----------------------------------
+
+    리셋  
+
+--------------------------------------*/
+
+/* 기본 스타일 */
+body {margin: 0; padding: 0; font-size: 16px; color: #101010; line-height: 26px; letter-spacing: -0.025em;}
+div,ul,ol,li,p,h1,h2,h3,h4,small,th,td {margin: 0; padding: 0;}
+ul li {list-style: none;}
+
+a {display: inline-block; color: #101010; text-decoration: none; transition: all .4s;}
+mark {background-color: #eeffc1;}
+strong {font-weight: 500;}
+table {width: 100%; border-collapse: collapse; table-layout: fixed; background-color: #fff;}
+table td {font-size: 14px;}
+table caption {text-indent: -9999px; overflow: hidden; height: 0px; margin-top: -2px;}
+fieldset {overflow: hidden; border: 0px; padding: 0px; margin: 0px;}
+fieldset legend {text-indent: -9999px; overflow: hidden; height: 0px;}
+button {cursor: pointer;}
+em {font-style: normal;}
+
+
+/* 커스텀 스타일 */
+.overH {overflow: hidden;} 
+.mt20 {margin-top: 20px;}
+.mt50 {margin-top: 50px;}
+.fz13 {font-size: 13px;}
+.fz14 {font-size: 14px;}
+.hide {text-indent: -9999px; font-size: 0; height: 0;}
+
+.txt_red {color: #ff0031;}
+.txt_blue {color: #0036ff;}
+.txt_gray {color: #777;}
+.txt_black {color: #000;}
+
+/* input 스타일 */
+input, button, select {width: 100%; font-family: 'NotoKr', sans-serif; font-weight: 300; font-size: 16px; outline: 0; border: 0px; padding: 0px; margin: 0px; color: #101010; background: none; box-shadow: 0 0 0 0; vertical-align: middle; appearance: none; -webkit-appearance: none;}
+input[type="text"], input[type="tel"], select {line-height: 21px; color: #101010; padding: 12px 15px; height: 45px; border: 1px solid #C7C7C7; box-sizing: border-box; background-color: white; border-radius: 5px; }
+input[type="text"]:focus {border: 1px solid #101010;}
+
+input[type="checkbox"],input[type="radio"] {width: 24px; height: 24px; opacity: 1;}
+input[type="checkbox"] {background: url(../img/bullet_radio.png) ;}
+input[type="radio"] {background-image: url(../img/bullet_radio.png) ;}
+input[type="checkbox"]:checked, input[type="radio"]:checked {background-position: left bottom;}
+
+input[type="checkbox"].rdo_chk {background: url(../img/bullet_check.png);}
+input[type="checkbox"].rdo_chk:checked{background-position: left bottom;}
+
+
+/* select 스타일 */
+select {padding: 11px 35px 13px 15px; background: url(../img/bullet_select.png) no-repeat right 19px; background-size: 24px 6px;}
+select {-webkit-appearance:none; /* 화살표 없애기 for chrome*/ -moz-appearance:none; /* 화살표 없애기 for firefox*/ appearance:none /* 화살표 없애기 공통*/ }
+select::-ms-expand{ display:none /* 화살표 없애기 for IE10, 11*/ }
+
+
+
+/* 다음 + 이전 버튼 */
+.line {margin: 30px 0 100px 0; border-top: 3px solid #e6e5e5;}
+.line .btn_area {overflow: hidden; margin-top: 24px;}
+.line .btn_area button {width: 76px; height: 38px; border: 2px solid #034ea2; border-radius: 20px; font-weight: bold;}
+
+.line .btn_area button.btn_next {color: #fff; background-color: #034ea2;}
+.line .btn_area button.btn_prev {color: #034ea2; background-color: #fff;}
+.line .btn_area button.btn_save {color: #fff; background-color: #034ea2;}
+
+.line .btn_area button.btn_next a{color: #fff !important; background-color: #034ea2;}
+.line .btn_area button.btn_prev a{color: #034ea2 !important;background-color: #fff;}
+.line .btn_area button.btn_save a{color: #fff !important;  background-color: #034ea2;}
+
+.line .btn_area button.left {float: left;}
+.line .btn_area button.right {float: right;} 
+.line .btn_area.center {text-align:center} 
+
+
+
+/* -----------------------------------
+
+   header
+
+--------------------------------------*/
+header {height: 56px; text-align: center; color: #fff; background-color: #204165;}
+header h1 {position: absolute; top: 15px; right: 12px;}
+header h2 {font-size: 24px; font-weight: bold; line-height: 56px;}
+/* -----------------------------------
+
+  main 공통
+
+--------------------------------------*/
+.main h3 {margin-bottom: 30px; font-size: 24px; color: #034ea2; text-align: center; }
+.main .desc {margin-top: 10px; font-size: 16px; text-align: center;}
+.main section {margin: 34px 20px;}
+
+
+/* --------------------------------------------
+
+    main  > sec01 대상자 선정
+
+----------------------------------------------- */
+.sec01 ul {margin-top: 14px;}
+.sec01 li {padding: 6px 0;}
+.sec01 li a {display: block; font-size: 18px; letter-spacing: -1px; border: 0px solid #eee; background-color: #ffffff;}
+.sec01 li a span {display: inline-block; margin-right: 12px; padding: 6px 14px; color: #fff; background-color: #034ea2;}
+
+/* --------------------------------------------
+.sec01 li a:focus {background-color: #034ea2; border: 1px solid#034ea2; color: #fff;}
+.sec01 li a:focus span {border-right: 1px solid #a3b8d4;}
+* /
+
+
+/* --------------------------------------------
+
+   main > sec00 정보입력
+
+----------------------------------------------- */
+.sec00 {position: relative; background-color: #fff;}
+
+/* 필수입력*/
+.sec00 p.require_guide {position: absolute; top: 3px; right: 20px; font-size: 13px;}
+.sec00 p.require_guide img.require {position: relative; top: -1px; margin-right: 5px; width: 8px; height: 8px;}
+
+.sec00 .field {margin-top: 24px;}
+.sec00 .field.mt0 {margin-top: 0px !important;}
+.sec00 .field strong {display: block; margin-bottom: 10px; font-size: 18px; }
+.sec00 .field strong img.require {position: relative; top: -8px; margin-left: 5px; width: 8px; height: 8px;}
+
+
+/* --------------------------------------------
+
+    main > sec01 현장 교육내용
+
+----------------------------------------------- */
+.sec01 {margin: 25px 20px; overflow: hidden;}
+.sec01 h4 {font-size: 22px; text-align: center;}
+
+/* 체크 이미지 */
+.sec01 .okay {position: relative; margin-top: 0px; padding: 10px 0;text-align: center; background-color: #efefef;}
+.sec01 .okay span {position: relative;} 
+.sec01 .okay input[type="checkbox"] {opacity:0; cursor:pointer;}
+.sec01 .okay input[type="checkbox"]:checked + label:before {background-position: left bottom;}
+.sec01 .okay label {font-size: 18px; font-weight: bold; vertical-align: middle;}
+.sec01 .okay label:before {content: ''; position: absolute; left: 0; top: 5px; width: 18px; height: 18px; background:url(../img/bullet_check_sm.png)no-repeat left top;}
+
+
+/* 사고사례 */
+.sec03 .incident h4 {margin-top: 40px !important; }
+.sec03 .incident ul {margin-top: 30px; overflow: hidden; text-align: center; font-size: 22px;}
+.sec03 .incident li {float: left; width: 31%; height: auto; margin-right: 3%;}
+.sec03 .incident li:last-child {margin-right: 0; float: left;}
+.sec03 .incident li a {position: relative; width: 100%; border: 0px solid #000;}
+.sec03 .incident li a:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_off.png); opacity: 1;}
+.sec03 .incident li a.onfocus {background-color: #fff; opacity: 1;}
+.sec03 .incident li a.onfocus:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_on.png); opacity: 1;}
+.sec03 .incident li a .pic {width: 100%;}
+.sec03 .incident li a span {display: block; margin-top: 10px;}
+
+
+/*필수 준수사항 */
+.sec02_2 .incident li a {position: relative; width: 100%; border: 0px solid #000;}
+.sec02_2 .incident li a:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_off.png); opacity: 1;}
+.sec02_2 .incident li a.onfocus {background-color: #fff; opacity: 1;}
+.sec02_2 .incident li a.onfocus:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_on.png); opacity: 1;}
+.sec02_2 .incident li a .pic {width: 100%;}
+.sec02_2 .incident li a span {display: block; margin-top: 10px;}
+
+
+
+/* --------------------------------------------
+
+    main > sec03 현장 교육내용
+
+----------------------------------------------- */
+/* table*/
+.sec03 table {margin-top: 10px;}
+.sec03 table th {padding: 14px 4px; font-size: 16px; line-height: 20px; background-color: #eaf0ff; border: 1px solid #98a2c4;}
+.sec03 table th.tit {font-size: 20px;}
+.sec03 table td {padding: 14px 14px; font-size: 16px; line-height: 24px; border: 1px solid #98a2c4;}
+.sec03 table td img{display: block; width: 100%;}
+.sec03 table td ul.txt_red li {color: #e24866;}
+.sec03 table td ul.txt_blue li {color: #034ea2;}
+.sec03 table td ul li {position: relative; /*padding-left: 13px;*/ font-size: 16px;}
+.sec03 table td ul.f28 li{font-size:20px; line-height: 28px;}
+/*.sec03 table td ul li:before {content: ''; position: absolute; top: 10px; left: 3px; width: 4px; height: 4px; background-color: #034ea2;}*/
+
+
+/* --------------------------------------------
+
+    main > sec05 작업 중지권
+
+----------------------------------------------- */
+/* 작업중지권*/
+.sec05 .overH ul {margin-top: 30px; overflow: hidden; margin-left:10px; font-size: 22px;}
+.sec05 .overH li {float: left; height: auto; margin-right: 3%;width:100%}
+.sec05 .overH li a {position: relative; width: 100%; border: 0px solid #000; padding-left:24px;text-align:left;}
+.sec05 .overH li a:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_off.png); opacity: 1;}
+.sec05 .overH li a.onfocus {background-color: #fff; opacity: 1;}
+.sec05 .overH li a.onfocus:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_on.png); opacity: 1;}
+.sec05 .overH li a .pic {width: 100%;margin-left:10px;}
+.sec05 .overH li a span {display: block; margin-top: 10px;}
+
+
+/* --------------------------------------------
+
+    main > sec05 기본 안전수칙
+
+----------------------------------------------- */
+/* table*/
+.sec05 table td {font-size: 14px; line-height: 24px;}
+.sec05 table td ul.list li {position: relative; margin-left: 10px; padding: 0px 0px 1px 14px; font-size: 16px; letter-spacing: -1px;}
+.sec05 table td ul.list li:before {content: ''; position: absolute; top: 10px; left: 4px; width: 4px; height: 4px; background-color: #034ea2;}
+.sec05 table td img {width: 40px;  vertical-align: middle;}
+.sec05 table tr:nth-child(2n) td {padding-bottom: 22px;} 
+.sec05 table tr:last-child td {padding-bottom: 0;}
+
+/* 체크 이미지 */
+.sec05 .okay {margin-top: 8px; padding: 2px 20px; text-align: right; border-radius: 4px;  background-color: #f8f8f8; box-sizing: border-box;}
+.sec05 .okay span {position: relative;}
+.sec05 .okay input[type="checkbox"] {opacity:0; cursor:pointer;}
+.sec05 .okay input[type="checkbox"]:checked + label:before {background-position: left bottom;}
+.sec05 .okay input[type="checkbox"]:checked + label {color: #101010;}
+.sec05 .okay label {font-size: 16px; color: #bebebf; vertical-align: middle;}
+.sec05 .okay label:before {content: ''; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; background:url(../img/bullet_check_sm.png)no-repeat left top;}
+
+
+/* --------------------------------------------
+
+    main > sec04 셀프 체크
+
+----------------------------------------------- */
+
+/* --------------------------------------------
+
+    sec04 건설현장 안전수칙
+
+----------------------------------------------- */
+/* table*/
+.sec04 table th {padding: 11px 4px; font-size: 24px; line-height: 20px; border: 1px solid #000;}
+.sec04 table th span {font-size: 18px;}
+.sec04 table th span.txt_red {color: #ff0005;}
+.sec04 table th span.txt_blue {color: #0031ff;}
+.sec04 table td {padding: 14px 0px; font-size: 17px; line-height: 24px; letter-spacing: -1px; border: 0px solid #98a2c4;}
+.sec04 table td:nth-child(2n) {padding: 0 18px 0 8px;}
+.sec04 table tr td:first-child {text-align: center;}
+.sec04 table td img {width: 30px;}
+
+.sec04 table.tbl_red {margin-top: 50px;}
+
+
+
+/* 체크 이미지 */
+.sec04 .okay {position: relative; margin-top: 10px; padding: 10px 0;text-align: center; background-color: #efefef;}
+.sec04 .okay span {position: relative;} 
+.sec04 .okay input[type="checkbox"] {opacity:0; cursor:pointer;}
+.sec04 .okay input[type="checkbox"]:checked + label {color: #101010;}
+.sec04 .okay input[type="checkbox"]:checked + label:before {background-position: left bottom;}
+.sec04 .okay label {font-size: 16px; color: #bebebf;font-weight: bold; vertical-align: middle;}
+.sec04 .okay label:before {content: ''; position: absolute; left: 0; top: 5px; width: 18px; height: 18px; background:url(../img/bullet_check_sm.png)no-repeat left top;}
+
+
+/* --------------------------------------------
+
+    sec08 개인정보 수집/이용 동의
+
+----------------------------------------------- */
+.sec08 .txtTop {margin-bottom: 10px; line-height: 26px;}
+.sec08 table {margin-top: 14px; text-align: center;}
+.sec08 table th, .sec08 table td {color: #034ea2; letter-spacing: -1px; border: 1px solid #b4bfe6;}
+.sec08 table th {height: 26px; font-size: 15px; background-color: #eaf0ff;}
+.sec08 table td {padding: 8px 0; font-size: 14px; line-height: 20px;}
+.sec08 .info {position: relative; margin-top: 22px; margin-bottom: 20px; font-size: 15px; line-height: 22px;}
+.sec08 .info span {display: block; font-size: 16px; font-weight: bold;}
+.sec08 .info p {margin-top: 8px; line-height: 26px;}
+
+
+/* 체크 이미지 */
+.sec08 .agree {position: relative; margin-top: 8px; padding: 10px 0; font-size: 18px; text-align: center; background-color: #efefef;}
+.sec08 .agree span {position: relative;}
+.sec08 .agree input[type="check"] {opacity:0; cursor:pointer;}
+.sec08 .agree input[type="checkbox"]:checked + label:before {background-position: left bottom;}
+.sec08 .agree label {font-size: 16px; font-weight: bold; vertical-align: middle;}
+.sec08 .agree label:before {content: ''; position: absolute; left: 0; top: 6px; width: 18px; height: 18px; background:url(../img/bullet_check_sm.png)no-repeat left top;}
+
+/* 버튼 */
+.btn_save {margin: 30px 0 140px 0; text-align: center;}
+.btn_save button {color: #fff; background-color: #000; font-size: 20px; width: 140px; height: 50px; border-radius: 30px;}
+
+
+/* --------------------------------------------
+
+    result 결과화면
+
+----------------------------------------------- */
+.result {text-align: center;/* margin-bottom: 100px; */padding-bottom: 100px;}
+.result .top {background-color: #2fe870;font-size: 34px;color: #fff;padding: 34px 0 100px 0px;}
+.result .top p {padding: 14px 0; letter-spacing: -1px;}
+.result .top p.txt {margin-top: 0px; font-size: 34px; line-height: 54px;}
+.result .bot {margin-top: 20px; padding: 0 22px;}
+.result .bot em {display: inline-block; margin-bottom: 22px; font-size: 32px; font-weight: bold;}
+.result .bot p {font-size: 24px; line-height: 33px;  letter-spacing: -1px; color: #444;}
+.result .bot .bold {margin-top: 16px;}
+.result .bot .bold span {color: #1d54eb; font-size: 26px; font-weight: bold;}
+
+
+
+/* --------------------------------------------
+
+    건설현장 사고사례
+
+----------------------------------------------- */
+.sec04 .safety_rule li {width:50%;float:left;position:relative}
+
+.sec04 .safety_rule li a:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_off.png); opacity: 1;}
+.sec04 .safety_rule li a.onfocus {background-color: #fff; opacity: 1;}
+.sec04 .safety_rule li a.onfocus:before {position: absolute; top: 0px; left: 0px; content: ''; width: 24px; height: 24px; background: url(../img/okay_on.png); opacity: 1;}
+.sec04 .safety_rule li a .pic {width: 100%;}
+.sec04 .safety_rule li a span {display: block; margin-top: 10px;}
+
+
+/*.sec01 {display: none;}
+.sec01 {display: none;}
+.sec03.item01 {display: none;}
+.sec03.item02 {display: none;}
+.sec03.item03 {display: none;}
+.sec00 {display: none;}
+.sec05 {display: none;}
+.sec08 {display: none;}
+.result {display: none1;}*/
+
+/** --------------------------------------------
+
+    main > sec10 건설현장 안전수칙 --추가
+
+----------------------------------------------- */
+/* table*/
+.sec10 table {margin: 10px 0px;}
+.sec10 table th {padding: 14px 4px; font-size: 16px; line-height: 20px; background-color: #eaf0ff; border: 1px solid #98a2c4;}
+.sec10 table th.tit {padding: 14px 14px;font-size: 20px;}
+.sec10 table td.tit {font-size: 18px;text-align: center}
+.sec10 table td {padding: 14px 14px; font-size: 16px; line-height: 24px; border: 1px solid #98a2c4;}
+.sec10 table td img{display: block; width: 100%;}
+
+
+.btn_download:hover {
+	background: #022f6b;
+}
+
+#info_tbl {
+    background-color: transparent;
+    margin: 25px auto 10px;
+    width: 80%;
+    color: #fff;
+}
+
+#info_tbl th,
+#info_tbl td {
+    border: 1px solid #537baf;
+    padding: 4px 6px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.accent-text {
+    color: #ffeb3b;
+}
+
+
+#btn_wrap {
+    position: absolute;
+    z-index: 10;
+    top: 695px;
+    width: 411px;
+}
+
+.btn_moveToCheck2 {
+    position: absolute;
+    z-index: 10;
+    top: 600px;
+    width: 411px;
+    text-align: center;
+}
+
+#downloadLink {
+    display: block;
+    background-color: #022f6b;
+    color: #fff;
+    height: 50px;
+    flex: 0.5;
+    text-align: center;
+    line-height: 50px;
+}
+
+.btn_close {
+    background-color: #202020;
+    color: #fff;
+    height: 50px;
+    flex: 0.5;
+}
+

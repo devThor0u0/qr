@@ -1,0 +1,201 @@
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+
+
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,  maximum-scale=1.0">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="pragma" content="no-store">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="Expires" content="-1">
+    <title>방문자 안전교육</title>
+    <link rel="stylesheet" href="../css/font.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/jquery-3.7.1.min.js"></script>
+	<script src="../js/html2canvas.min.js"></script>
+    <script src="../js/qrcode.js"></script>	
+	<script>
+
+    // QR 생성 및 캡처 실행
+	$(function () {
+        const qr = qrcode(0, 'L');
+        const k = generateRandomString();
+        const d = getTodayDate();
+        qr.addData(`k=${k}&d=${d}`);
+        qr.make();
+
+        // QR 코드 이미지 태그 생성 (cellSize 6 → 4, margin 4 → 2)
+        const html = qr.createImgTag(4, 2, 'QR', "#ffffff", "#333333");
+        $("#qrcode").html(html);
+
+        // 생성된 <img>에 스타일 직접 지정 (CSS로 200px 제한)
+        $("#qrcode img").css({
+            width: "200px",
+            height: "200px"
+        });
+
+        // QR 이미지 로딩 후 캡처
+        $("#qrcode img").on("load", function () {
+            setTimeout(() => {
+                PrintDiv($("#capture"));
+            }, 100);
+        });
+    });
+
+
+
+    function PrintDiv($div) {
+        html2canvas($div[0], {
+            useCORS: true
+        }).then(function (canvas) {
+            const imgData = canvas.toDataURL("image/png");
+
+            // 이미지 결과 출력
+            $("#captureOri").attr("src", imgData).css({
+                display: "block",
+                width: "100%",
+                maxWidth: "411px",
+                height: "800px"
+            });
+
+            // ✅ capture 영역 숨김 처리
+            $div.css({
+                display: "none"
+            });
+
+
+            // 다운로드 설정
+            const fileName = `${getTodayDateCompact()}_${generateRandom4Digits()}.png`;
+            $("#downloadLink").attr({
+                href: imgData,
+                download: fileName
+            })
+
+            $("#downloadContainer").show();
+
+            // 스크롤 이동
+            setTimeout(() => {
+                const offset = $("#captureOri").offset();
+                if (offset) {
+                    $("html, body").animate({ scrollTop: offset.top }, 400);
+                }
+            }, 100);
+        });
+    }
+
+
+
+    function generateRandomString(length = 64) {
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * chars.length);
+            result += chars[randomIndex];
+        }
+        return result;
+    }
+
+    function getTodayDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    function getTodayDateCompact() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}${month}${day}`; // 예: 20250613
+    }
+
+
+    function generateRandom4Digits() {
+        return Math.floor(1000 + Math.random() * 9000); // 1000 ~ 9999 사이의 난수
+    }
+
+
+
+    function pop_close() {
+        location.href = "./index.asp";
+    }
+
+
+    $(document).on("click", ".btn_close", function() {
+
+        if(confirm("창을 닫으시겠습니까?")) {
+            pop_close();
+        }
+    });
+
+
+	</script>
+</head>
+
+<body>
+<div id="wrap">
+	<div id="capture" class="sec01" style="margin: 0px; width: 411px; height: 800px;">
+		<header style="position:relative">
+			<h1><img src="../img/logo.png" alt="삼성물산"></h1>
+			<h2>방문자 안전교육 결과</h2>
+		</header>
+		<!-- 제출화면 -->
+		<div class="result">
+			<div class="top" style="background-color:#0c4da2">
+                <p class="txt" style="font-size:23px;">보안요원에게 제시/확인 후 입문바랍니다.</p>
+                <div id="qrcode" style="text-align:center; margin-top: 20px;"></div>
+                <table id="info_tbl">
+                    <colgroup>
+                        <col width="40%">
+                        <col width="auto">
+                    </colgroup>
+                    <tr>
+                        <td colspan="2" style="text-align: center;">test <span>(010-1112-1111)</span></td>
+                    </tr>
+                    <tr>
+                        <th>방문사업장</th>
+                        <td>삼척 수소화합물 설비</td>
+                    </tr>
+                    <tr>
+                        <th>방문업체명</th>
+                        <td>기타</td>
+                    </tr>
+                    <tr>
+                        <th>방문일자</th>
+                        <td>2025-06-12</td>
+                    </tr>
+                    <tr>
+                        <th>안전교육</th>
+                        <td><span class="accent-text">2025-06-12</span></td>
+                    </tr>
+                </table>
+			</div>
+		</div><!-- //제출화면 -->
+	</div>
+
+    <div style="position:relative;width:411px;height:0px;margin:0px;padding:0px;border:0px solid red;margin-top:0px;">
+		<img src="" id="captureOri" style="position:relative;width:411px;border:0px solid blue;display:none1;" usemap="#safetyMap">
+	</div>
+
+    <div class="btn_moveToCheck2 next">
+        <button class="right" onclick="location.href='confirm_kr_check2.asp?sName=test&amp;sHp=01011111111'" style="background: #043975;position:relative;width: 320px;color: #fff;padding: 16px 15px;border-radius: 30px;">상기 이미지가 안보일 경우 클릭</button>
+    </div>
+
+	<div id="btn_wrap">
+        <div style="display: flex; gap: 4px;">
+            <button class="btn_close" id="submit">닫기</button>
+            <a id="downloadLink" href="#" class="btn_download">이미지 저장</a>
+        </div>
+
+	</div>
+  
+    
+</div><!-- wrap -->
+
+
+
+</body></html>
