@@ -27,7 +27,7 @@
 			<button id="installBtn" style="display: none; position:fixed; bottom:20px; right:20px; z-index:1000;">
 				앱 설치하기
 			</button>
-            <button class="close_btn"></button>                  
+            <button class="close_btn" onclick="closeScreen();"></button>                  
         </div>
     </div>
 
@@ -204,6 +204,20 @@
 		}
 
 
+		function closeScreen() {
+
+			if (confirm("창을 닫으시겠습니까?")) {
+				window.close();
+
+				// 만약 닫히지 않는다면 다음 메시지를 출력
+				setTimeout(() => {
+					if (!window.closed) {
+						alert("이 창은 브라우저에서 직접 연 경우 닫을 수 없습니다.\n브라우저의 뒤로가기 버튼이나 닫기 버튼을 사용해 주세요.");
+					}
+				}, 200);
+			}
+		}
+
 		// 카메라 변경 이벤트 처리
 		cameraSelect.addEventListener("change", () => {
 		const selectedId = cameraSelect.value;
@@ -269,6 +283,8 @@
 			});
 		}
 	});
+
+
 
 	</script>
 
