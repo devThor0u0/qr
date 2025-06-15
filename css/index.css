@@ -390,7 +390,25 @@ Footer copyright
 @media (max-width: 480px) { }
 
 /* 481px ~ 720px : 일반 스마트폰 */
-@media (min-width: 481px) and (max-width: 720px) { }
+@media (min-width: 481px) and (max-width: 720px) {
+
+    .header .inner .logo img {
+        height: 40px;
+    }
+
+    .header .inner .selbox .select {
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .main-content h3 {
+        top: 72%;
+    }
+
+    .footer {
+        bottom: -30px;
+    }
+ }
 
 /* > 720px : 태블릿 및 PC */
 @media (min-width: 721px) { 
@@ -405,7 +423,7 @@ Footer copyright
     }
 
     .main-content h3 {
-        top: 70%;
+        top: 74%;
     }
 
     .footer {

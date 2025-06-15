@@ -93,6 +93,7 @@
 		// QR 코드 스캔 성공 시 처리
 		function onScanSuccess(decodedText, decodedResult) {
 			html5QrCode.stop().then(() => {
+
 				successSound.play();
 				document.getElementById("qr-result").innerText = decodedText;
 
@@ -149,7 +150,9 @@
 		function startCamera(cameraId) {
 			html5QrCode.start(
 				cameraId,
-				{ fps: 10, qrbox: { width: 500, height: 500 } },
+				{ fps: 10, 
+					qrbox: getResponsiveQrbox(), // 여기에 반응형 박스
+				},
 				(decodedText) => {
 					alert("QR 인식: " + decodedText);
 					setTimeout(() => {
@@ -175,11 +178,13 @@
 		}
 
 		// 포커스 박스 크기 설정
-		function getMobileQrbox() {
+		function getResponsiveQrbox() {
 			const width = window.innerWidth;
-			if (width < 400) return 200;
-			else if (width < 700) return 250;
-			else return 300;
+
+			if (width <= 480) return { width: 180, height: 180 };
+			else if (width <= 720) return { width: 240, height: 240 };
+			else if (width <= 1024) return { width: 300, height: 300 };
+			else return { width: 350, height: 350 };
 		}
 
 		// 창 닫기 버튼 이벤트
