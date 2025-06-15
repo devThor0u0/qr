@@ -398,7 +398,17 @@ Footer copyright
     .header .inner .logo img {
         height: 40px;
     }
+
+    .header .inner .selbox .select {
+        height: 40px;
+        line-height: 40px;
+    }
+
     .main-content h3 {
         top: 70%;
+    }
+
+    .footer {
+        bottom: -30px;
     }
 }
