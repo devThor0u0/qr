@@ -94,7 +94,6 @@
 		function onScanSuccess(decodedText, decodedResult) {
 			html5QrCode.stop().then(() => {
 
-				successSound.play();
 				document.getElementById("qr-result").innerText = decodedText;
 
 				const key = getQueryValue(decodedText, 'k');
@@ -109,7 +108,6 @@
 				}, 13000);
 			}).catch(err => {
 				resultElem.innerText = `❌ 카메라 정지 실패: ${err}`;
-				failSound.play();
 			});
 		}
 
@@ -154,6 +152,7 @@
 					qrbox: getResponsiveQrbox(), // 여기에 반응형 박스
 				},
 				(decodedText) => {
+					successSound.play();
 					alert("QR 인식: " + decodedText);
 					setTimeout(() => {
 						startCamera(cameraId);
@@ -164,6 +163,7 @@
 			}).catch(err => {
 				isCameraRunning = false;
 				console.error("카메라 실행 실패", err);
+				failSound.play();
 			});
 		}
 
