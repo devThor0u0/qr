@@ -78,7 +78,8 @@
 		const failSound = document.getElementById("fail-sound");
 		const html5QrCode = new Html5Qrcode("qr-reader");
 		let currentCameraId = null;
-		let isCameraRunning = false;
+		let isCameraRunning = false
+		let hasScanned = false;;
 
 		// QR 포커스 박스 크기
 		const focusBoxSize = Math.floor(window.innerWidth * 0.65);
@@ -92,8 +93,15 @@
 
 		// QR 코드 스캔 성공 시 처리
 		function onScanSuccess(decodedText, decodedResult) {
+
+			if (hasScanned) return; // 이미 인식했으면 무시
+
+			hasScanned = true;
+
 			html5QrCode.stop().then(() => {
 
+				successSound.play();
+				alert("QR 인식: " + decodedText); // 여기서 한 번만 뜸
 				document.getElementById("qr-result").innerText = decodedText;
 
 				const key = getQueryValue(decodedText, 'k');
@@ -105,9 +113,11 @@
 				setTimeout(() => {
 					currentCameraId = localStorage.deviceId;
 					startCamera(currentCameraId);
-				}, 13000);
+				}, 3000);
 			}).catch(err => {
 				resultElem.innerText = `❌ 카메라 정지 실패: ${err}`;
+				failSound.play();
+				hasScanned = false; // 실패 시에도 초기화 필요
 			});
 		}
 
@@ -153,12 +163,7 @@
 				},
 				(decodedText) => {
 
-					successSound.play();
-					alert("QR 인식: " + decodedText);
-
-					setTimeout(() => {
-						startCamera(cameraId);
-					}, 3000);
+					onScanSuccess();
 				}
 			).then(() => {
 				isCameraRunning = true;
